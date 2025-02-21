@@ -24,7 +24,7 @@ export default function DepartmentRequest() {
   const filteredRequests = departmentRequests.filter((request) => {
     const searchLower = searchTerm.toLowerCase();
     return (
-      request.department_name.toLowerCase().includes(searchLower) ||
+      request.classroom_name.toLowerCase().includes(searchLower) ||
       request.product_name.toLowerCase().includes(searchLower) ||
       request.product_model.toLowerCase().includes(searchLower) ||
       request.product_brand.toLowerCase().includes(searchLower)
@@ -52,7 +52,7 @@ export default function DepartmentRequest() {
     };
 
     try {
-      const response = await fetch('/api/department-request/create', {
+      const response = await fetch('https://lms-backend-58c4.onrender.com/api/department-request/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export default function DepartmentRequest() {
         <h2 className="text-2xl font-bold">Department Requests</h2>
         <div className="flex items-center">
           {/* Search Bar */}
-          <label className="input input-bordered flex items-center gap-2 mr-5">
+          <label className="input input-bordered flex items-center gap-2 mr-5 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
             <input
               type="text"
               className="grow"
@@ -147,7 +147,7 @@ export default function DepartmentRequest() {
                   className="odd:bg-white even:bg-gray-50 border-b"
                   ref={index === filteredRequests.length - 1 ? newRequestRef : null} 
                 >
-                  <td className="px-6 py-4">{request.department_name}</td>
+                  <td className="px-6 py-4">{request.classroom_name}</td>
                   <td className="px-6 py-4">{request.product_name}</td>
                   <td className="px-6 py-4">{request.product_model}</td>
                   <td className="px-6 py-4">{request.product_brand}</td>

@@ -125,8 +125,8 @@ export default function Dashboard() {
                 nameKey="product_name"
                 outerRadius={100}
                 fill="#8884d8"
-                label={({ department_name, product_name, total_purchases }) =>
-                  `${department_name} - ${product_name}: ${total_purchases}`
+                label={({ classroom_name, product_name, total_purchases }) =>
+                  `${classroom_name} - ${product_name}: ${total_purchases}`
                 }
               >
                 {topPurchasesDepartment.map((entry, index) => (
@@ -141,7 +141,7 @@ export default function Dashboard() {
 
       {/* Inventory Table Section */}
       <div className="mt-6">
-        <h3 className="text-lg font-semibold mb-4">Recent Department Requests</h3>
+        <h3 className="text-lg font-semibold mb-4">Inventory Requests</h3>
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -164,7 +164,7 @@ export default function Dashboard() {
               <tbody>
                 {recentRequests.map((item, index) => (
                   <tr key={`department-${index}`} className="odd:bg-white even:bg-gray-50 border-b">
-                    <td className="px-6 py-4">{item.department_name}</td>
+                    <td className="px-6 py-4">{item.classroom_name}</td>
                     <td className="px-6 py-4">{item.product_name}</td>
                     <td className="px-6 py-4">{item.product_model}</td>
                     <td className="px-6 py-4">{item.product_brand}</td>

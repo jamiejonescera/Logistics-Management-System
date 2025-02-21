@@ -115,7 +115,7 @@
 //       <div className="flex items-center justify-between mb-6 border-b-2 border-gray-500 pb-2">
 //         <h2 className="text-2xl font-bold">Predefined Products</h2>
 //         <div className="flex items-center">
-//           <label className="input input-bordered flex items-center gap-20 mr-5">
+//           <label className="input input-bordered flex items-center gap-20 mr-5 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
 //             <input
 //               type="text"
 //               className="grow"
@@ -347,7 +347,8 @@ export default function Products() {
     };
   
     try {
-      const response = await fetch(`/api/products/update/${currentProductId}`, {
+      const response = await fetch(`https://lms-backend-58c4.onrender.com/api/products/update/${currentProductId}`, {
+
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -419,7 +420,8 @@ export default function Products() {
     };
 
     try {
-      const response = await fetch('/api/products/create', {
+      const response = await fetch('https://lms-backend-58c4.onrender.com/api/products/create', {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -454,7 +456,8 @@ export default function Products() {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`/api/products/delete/${productId}`, {
+      const response = await fetch(`https://lms-backend-58c4.onrender.com/api/products/delete/${productId}`, {
+
         method: 'DELETE',
       });
 
@@ -480,7 +483,7 @@ export default function Products() {
       <div className="flex items-center justify-between mb-6 border-b-2 border-gray-500 pb-2">
         <h2 className="text-2xl font-bold">Predefined Products</h2>
         <div className="flex items-center">
-          <label className="input input-bordered flex items-center gap-20 mr-5">
+          <label className="input input-bordered flex items-center gap-20 mr-5 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
             <input
               type="text"
               className="grow"

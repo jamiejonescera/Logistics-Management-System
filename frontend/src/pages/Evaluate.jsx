@@ -37,7 +37,8 @@ export default function PurchaseList() {
     }
   
     try {
-      const response = await fetch(`/api/evaluate/create/${selectedRequest.request_id}`, {
+      const response = await fetch(`https://lms-backend-58c4.onrender.com/api/evaluate/create/${selectedRequest.request_id}`, {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -169,7 +170,7 @@ export default function PurchaseList() {
       {/* Purchase List */}
       <div className="flex items-center justify-between mb-6 border-b-2 border-gray-500 pb-2">
         <h2 className="text-2xl font-bold">Evaluate Checklist</h2>
-        <label className="input input-bordered flex items-center gap-20 mr-5">
+        <label className="input input-bordered flex items-center gap-20 mr-5 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
           <input type="text" className="grow" placeholder="Search" />
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 opacity-70">
             <path

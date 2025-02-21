@@ -40,6 +40,7 @@ const Signup = () => {
 
       toast.success("Signup successful! Please check your email for verification.");
       navigate("/login");
+      
     } catch (error) {
       toast.error(error.message || "An error occurred during signup");
     } finally {

@@ -37,7 +37,8 @@ export default function PurchaseList() {
   // Handle deletion of a purchase request
   const deletePurchaseRequest = async (requestId) => {
     try {
-      const response = await fetch(`/api/purchase/delete/${requestId}`, {
+      const response = await fetch(`https://lms-backend-58c4.onrender.com/api/purchase/delete/${requestId}`, {
+
         method: 'DELETE',
       });
 
@@ -91,7 +92,7 @@ export default function PurchaseList() {
         <h2 className="text-2xl font-bold">Purchase List</h2>
         {/* Search and Status Filter */}
         <div className="flex gap-4">
-          <label className="input input-bordered flex items-center gap-2">
+          <label className="input input-bordered flex items-center gap-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
             <input
               type="text"
               className="grow"

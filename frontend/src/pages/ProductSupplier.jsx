@@ -165,7 +165,7 @@
 //       <div className="flex items-center justify-between mb-6 border-b-2 border-gray-500 pb-2">
 //         <h2 className="text-2xl font-bold">Product Supplier List</h2>
 //         <div className="flex items-center">
-//           <label className="input input-bordered flex items-center gap-20 mr-5">
+//           <label className="input input-bordered flex items-center gap-20 mr-5 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
 //             <input
 //               type="text"
 //               className="grow"
@@ -468,7 +468,8 @@ export default function ProductSupplier() {
     };
 
     try {
-      const response = await fetch('/api/product-suppliers/create', {
+      const response = await fetch('https://lms-backend-58c4.onrender.com/api/product-suppliers/create', {
+
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newSupplier),
@@ -492,7 +493,8 @@ export default function ProductSupplier() {
 
   const handleToggleStatus = async (productSupplierId) => {
     try {
-      const response = await fetch(`/api/product-suppliers/toggle-status/${productSupplierId}`, {
+      const response = await fetch(`https://lms-backend-58c4.onrender.com/api/product-suppliers/toggle-status/${productSupplierId}`, {
+
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -543,7 +545,8 @@ export default function ProductSupplier() {
     if (!selectedSupplierId) return;
     
     try {
-      const response = await fetch(`/api/product-suppliers/delete/${selectedSupplierId}`, {
+      const response = await fetch(`https://lms-backend-58c4.onrender.com/api/product-suppliers/delete/${selectedSupplierId}`, {
+
         method: 'DELETE',
       });
 
@@ -575,27 +578,27 @@ export default function ProductSupplier() {
       <div className="flex items-center justify-between mb-6 border-b-2 border-gray-500 pb-2">
         <h2 className="text-2xl font-bold">Product Supplier List</h2>
         <div className="flex items-center">
-          <label className="input input-bordered flex items-center gap-20 mr-5">
-            <input
-              type="text"
-              className="grow"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="h-4 w-4 opacity-70"
-            >
-              <path
-                fillRule="evenodd"
-                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </label>
+                <label className="input input-bordered flex items-center gap-20 mr-5 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                  <input
+                    type="text"
+                    className="grow"
+                    placeholder="Search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    className="h-4 w-4 opacity-70"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </label>
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
@@ -732,7 +735,7 @@ export default function ProductSupplier() {
                 <select
                   value={selectedSupplier}
                   onChange={(e) => setSelectedSupplier(e.target.value)}
-                  className="input input-bordered w-full"
+                  className="mt-1 block w-full px-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 >
                   <option value="">Select a supplier</option>
@@ -748,7 +751,7 @@ export default function ProductSupplier() {
                 <select
                   value={selectedProduct}
                   onChange={(e) => setSelectedProduct(e.target.value)}
-                  className="input input-bordered w-full"
+                  className="mt-1 block w-full px-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 >
                   <option value="">Select a product</option>
@@ -765,7 +768,7 @@ export default function ProductSupplier() {
                   type="text"
                   value={formattedUnitPrice}
                   onChange={handleChangeUnitPrice}
-                  className="input input-bordered w-full"
+                  className="mt-1 block w-full px-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Unit Price"
                   required
                 />

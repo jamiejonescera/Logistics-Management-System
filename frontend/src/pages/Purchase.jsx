@@ -73,7 +73,8 @@ export default function Purchase() {
   
       try {
         // Send request to create the purchase
-        const response = await fetch('/api/purchase/create', {
+        const response = await fetch('https://lms-backend-58c4.onrender.com/api/purchase/create', {
+
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -138,11 +139,11 @@ export default function Purchase() {
   return (
     <div className="container mx-auto p-6">
       <div className="bg-white p-8 rounded-lg shadow-xl mb-6">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Add Purchase Request</h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center ">Add Purchase Request</h2>
         <form className="space-y-8" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Product</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2 ">Product</label>
               <select
                 className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm text-sm focus:ring-green-500 focus:border-green-500"
                 onChange={handleProductChange}
