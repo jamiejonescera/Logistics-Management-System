@@ -27,8 +27,10 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})  # Allow all origins for deve
 
 
 # Get the database URI from environment variables
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lms_database_vevz_user:KcRm1bAQ5YATGGxrYIcNn2SfcVo3rFiy@dpg-cuosrfdds78s738o5ct0-a.singapore-postgres.render.com/lms_database_vevz"
+
 
 # Initialize the SQLAlchemy database instance
 db = SQLAlchemy(app)
