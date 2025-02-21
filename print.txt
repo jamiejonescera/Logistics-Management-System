@@ -1,0 +1,152 @@
+import React, { useState, useEffect, useRef } from 'react'; // Import React hooks
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesomeIcon for icons
+import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'; // Import specific icons
+import { useDepartments } from '../hooks/useDepartments'; // Import custom hook to fetch departments
+import toast from 'react-hot-toast'; // Import toast notifications
+
+export default function Departments() {
+  // Retrieve departments and related state from custom hook
+  const { departments, loading, error, setDepartments } = useDepartments();
+
+  // State for handling modals and input values
+  const [isModalOpen, setIsModalOpen] = useState(false); // Controls add department modal
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // Controls update department modal
+  const [departmentName, setDepartmentName] = useState(''); // Stores input value for department name
+  const [selectedDepartmentId, setSelectedDepartmentId] = useState(null); // Stores selected department for update
+  const newDepartmentRef = useRef(null); // Reference for smooth scrolling to new department
+
+  // Opens the add department modal
+  const openModal = () => setIsModalOpen(true);
+
+  // Closes the add department modal and resets input
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setDepartmentName('');
+  };
+
+  // Opens the update department modal with selected department details
+  const openUpdateModal = (departmentId, departmentName) => {
+    setSelectedDepartmentId(departmentId);
+    setDepartmentName(departmentName);
+    setIsUpdateModalOpen(true);
+  };
+
+  // Closes the update department modal and resets state
+  const closeUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+    setDepartmentName('');
+    setSelectedDepartmentId(null);
+  };
+
+  // Handles submission of a new department
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Send request to create a new department
+      const response = await fetch('https://lms-backend-58c4.onrender.com/api/department/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ classroom_name: departmentName }),
+      });
+
+      if (!response.ok) throw new Error('Failed to create department');
+
+      const { department, message } = await response.json();
+      closeModal();
+      toast.success(message || 'Department added successfully!');
+
+      // Update state with new department
+      setDepartments((prev) => [...prev, department]);
+    } catch (error) {
+      toast.error('Error: ' + (error.message || 'An unexpected error occurred.'));
+    }
+  };
+
+  // Handles deletion of a department
+  const handleDelete = async (departmentId) => {
+    try {
+      const response = await fetch(`https://lms-backend-58c4.onrender.com/api/department/delete/${departmentId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) throw new Error('Failed to delete department');
+
+      toast.success('Department deleted successfully!');
+
+      setDepartments((prev) => prev.filter((dept) => dept.department_id !== departmentId));
+    } catch (error) {
+      toast.error('Error: ' + (error.message || 'An unexpected error occurred.'));
+    }
+  };
+
+  // Handles updating a department
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`https://lms-backend-58c4.onrender.com/api/department/update/${selectedDepartmentId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ classroom_name: departmentName }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update department');
+
+      toast.success('Department updated successfully!');
+      closeUpdateModal();
+
+      setDepartments((prev) =>
+        prev.map((dept) =>
+          dept.department_id === selectedDepartmentId ? { ...dept, classroom_name: departmentName } : dept
+        )
+      );
+    } catch (error) {
+      toast.error('Error: ' + (error.message || 'An unexpected error occurred.'));
+    }
+  };
+
+  // Smooth scroll to the latest added/updated department
+  useEffect(() => {
+    if (newDepartmentRef.current) {
+      newDepartmentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [departments]);
+
+  return (
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6 border-b-2 pb-2">
+        <h2 className="text-2xl font-bold">Facilities</h2>
+        <button onClick={openModal} className="text-white bg-green-700 px-5 py-2.5 rounded-lg">
+          <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Facility
+        </button>
+      </div>
+
+      {loading && <p className="text-center">Loading...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
+      {departments.length === 0 && !loading && !error && <p className="text-center">No facilities available.</p>}
+
+      <table className="w-full text-sm text-gray-500">
+        <thead className="text-xs text-gray-700 bg-gray-50">
+          <tr>
+            <th className="px-6 py-4">Facility Name</th>
+            <th className="px-6 py-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {departments.map((dept) => (
+            <tr key={dept.department_id} className="border-b">
+              <td className="px-6 py-4">{dept.classroom_name}</td>
+              <td className="px-6 py-4 flex space-x-2">
+                <button onClick={() => openUpdateModal(dept.department_id, dept.classroom_name)} className="text-green-700">
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+                <button onClick={() => handleDelete(dept.department_id)} className="text-red-700">
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
